@@ -18,7 +18,7 @@ dependencyResolutionManagement {
         mavenCentral()
         //noinspection JcenterRepositoryObsolete
         jcenter() // Warning: this repository is going to shut down soon
-        maven { url 'https://jitpack.io' }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
