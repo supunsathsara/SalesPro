@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.AttributeSet
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,6 +65,16 @@ class RegisterActivity : AppCompatActivity() {
                 val lastName = edLastName.text.toString()
                 val email = edEmail.text.toString()
                 val password = edPassword.text.toString()
+
+                //Validate the input fields
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(this@RegisterActivity, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    Toast.makeText(this@RegisterActivity, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
 
                 val user = User(firstName, lastName, email)
 
