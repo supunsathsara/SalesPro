@@ -104,7 +104,7 @@
             android:layout_marginTop="5dp"/>
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-            android:id="@+id/btn_login_fragment"
+            android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="@dimen/_45sdp"
             android:background="@drawable/btn_background"
@@ -120,23 +120,6 @@
 
 
 
-        <ImageView
-            android:id="@+id/btn_google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toBottomOf="@id/btn_login_fragment"
-            android:src="@drawable/ic_google_login"
-            android:layout_marginTop="@dimen/_10sdp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Google"
-            app:layout_constraintStart_toStartOf="@id/btn_google"
-            app:layout_constraintEnd_toEndOf="@id/btn_google"
-            app:layout_constraintTop_toTopOf="@id/btn_google"
-            app:layout_constraintBottom_toBottomOf="@id/btn_google"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
