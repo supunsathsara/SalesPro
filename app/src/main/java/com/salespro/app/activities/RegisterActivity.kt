@@ -59,6 +59,13 @@ class RegisterActivity : AppCompatActivity() {
             insets
         }
 
+        //Login button click listener
+        binding.apply{
+            tvDoHaveAnAccount.setOnClickListener {
+                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+            }
+        }
+
         binding.apply{
             btnRegister.setOnClickListener {
                 val firstName = edFirstName.text.toString()
