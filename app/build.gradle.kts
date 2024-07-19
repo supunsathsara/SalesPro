@@ -36,6 +36,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -93,8 +97,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.4.1")
 
     // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.38.1")
-kapt("com.google.dagger:hilt-compiler:2.38.1")
+    implementation("com.google.dagger:hilt-android:2.48")
+kapt("com.google.dagger:hilt-compiler:2.48")
 
 
 
