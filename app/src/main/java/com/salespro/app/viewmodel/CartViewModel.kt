@@ -41,7 +41,7 @@ class CartViewModel @Inject constructor(
                 }
                 cartProductDocuments = value!!.documents
                 val cartProducts = value?.toObjects(CartProduct::class.java)
-                viewModelScope.launch { Resource.Success(cartProducts!!)}
+                viewModelScope.launch { _cartProducts.emit(Resource.Success(cartProducts!!)) }
             }
     }
 
