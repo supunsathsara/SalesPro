@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.salespro.app.R
 import com.salespro.app.adapters.ProductsRecyclerAdapter
@@ -44,6 +45,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupProductsRv()
+
+        productAdapter.onClick = {
+            Log.d(TAG, "onViewCreated: ${it.name}")
+            val b = Bundle().apply { putParcelable("product",it) }
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.products.collectLatest {

@@ -44,6 +44,10 @@ class ProductsRecyclerAdapter():
         return differ.currentList.size
     }
 
+    var onClick: ((Product) -> Unit)? = null
+
+
+
     override fun onBindViewHolder(holder: BestProductsRecyclerAdapterViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.binding.apply {
@@ -54,7 +58,9 @@ class ProductsRecyclerAdapter():
         }
 
         holder.itemView.setOnClickListener {
-            onItemClick?.invoke(differ.currentList[position])
+           // onItemClick?.invoke(differ.currentList[position])
+            onClick?.invoke(product)
+
         }
     }
 
