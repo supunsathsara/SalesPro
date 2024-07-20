@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.salespro.app.R
 import com.salespro.app.activities.LoginActivity
@@ -43,6 +44,11 @@ class ProfileFragment : Fragment() {
         onLogoutClick()
 
         binding.tvVersionCode.text = "Version 1.0"
+
+        binding.linearOrders.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToOrderFragment()
+            findNavController().navigate(action)
+        }
 
         lifecycleScope.launchWhenStarted {
            viewModel.user.collectLatest {
