@@ -85,7 +85,7 @@ The project focuses on developing the SalesPro application with the aforemention
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/salespro.git
+    git clone https://github.com/supunsathsara/salespro.git
     ```
 2. Open the project in Android Studio.
 3. Build the project to install the required dependencies.
