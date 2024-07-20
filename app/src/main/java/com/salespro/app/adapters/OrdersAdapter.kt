@@ -10,6 +10,9 @@ import com.salespro.app.databinding.OrderItemBinding
 import com.salespro.app.databinding.ProductItemBinding
 import com.salespro.app.model.Order
 import com.salespro.app.model.Product
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class OrdersAdapter() :
     RecyclerView.Adapter<OrdersAdapter.OrderAdapterViewHolder>() {
@@ -20,8 +23,16 @@ class OrdersAdapter() :
             fun bind(order: Order){
                 binding.apply {
 
+                    val date = Date(order.orderDate)
+
+                    // Define a date format
+                    val dateFormat = SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault())
+
+                    // Format the date
+                    val formattedDate = dateFormat.format(date)
+
                     tvOrderId.text = order.orderId.toString()
-                    tvOrderDate.text = order.orderDate
+                    tvOrderDate.text = formattedDate
 
 
                 }

@@ -47,6 +47,22 @@ class OrderViewModel @Inject constructor(
                     }
                 }
 
+            // Update the stock of the products
+           /* firestore.collection("products")
+                .get()
+                .addOnSuccessListener {
+                    it.documents.forEach { doc ->
+                        order.products.forEach { cartProduct ->
+                            if(doc.id == cartProduct.product.id){
+                                val stock = doc.getLong("qty")!!.toInt() - cartProduct.quantity
+                                batch.update(doc.reference, "qty", stock)
+                            }
+                        }
+                    }
+                }
+
+            */
+
         }.addOnSuccessListener {
             viewModelScope.launch {
                 _order.emit(Resource.Success(order))

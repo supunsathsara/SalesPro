@@ -163,11 +163,11 @@ class CartFragment : Fragment() {
             setTitle("Place Order")
             setMessage("Are you sure you want to place this order?")
             setPositiveButton("Yes") { dialog, _ ->
-                var order = Order(
+                val order = Order(
                     products = cartAdapter.differ.currentList,
                     totalPrice = viewModel.calculatePrice(cartAdapter.differ.currentList),
-                    orderStatus = "Pending",
-                    orderDate = System.currentTimeMillis().toString()
+                    orderDate = System.currentTimeMillis(), // Current timestamp in milliseconds
+                    orderStatus = "Pending" // Default status or any other status
                 )
                 orderViewModel.placeOrder(order)
                 dialog.dismiss()
