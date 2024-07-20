@@ -44,4 +44,8 @@ class ProfileViewModel @Inject constructor(
             }
     }
 
+    fun logout() {
+        auth.signOut()
+    }
+
 }
