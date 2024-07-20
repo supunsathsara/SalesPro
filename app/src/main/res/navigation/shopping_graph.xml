@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_profileFragment_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_helpFragment"
+            app:destination="@id/helpFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -60,4 +63,9 @@
             android:name="order"
             app:argType="com.salespro.app.model.Order" />
     </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.salespro.app.fragments.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
 </navigation>

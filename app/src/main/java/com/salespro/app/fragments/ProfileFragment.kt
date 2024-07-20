@@ -51,6 +51,11 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        binding.linearHelp.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToHelpFragment()
+            findNavController().navigate(action)
+        }
+
         lifecycleScope.launchWhenStarted {
            viewModel.user.collectLatest {
                 when(it){
@@ -59,7 +64,8 @@ class ProfileFragment : Fragment() {
                      }
                      is Resource.Success -> {
                           binding.progressbarSettings.visibility = View.GONE
-                          binding.tvUserName.text = it.data?.firstName
+                          binding.tvUserName.text = it.data?.firstName + " " + it.data?.lastName
+                            binding.tvEmail.text = it.data?.email
 
                      }
                      is Resource.Error -> {
