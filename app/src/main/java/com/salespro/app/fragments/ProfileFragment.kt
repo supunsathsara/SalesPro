@@ -6,14 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
 import com.salespro.app.R
 import com.salespro.app.activities.LoginActivity
 import com.salespro.app.activities.LoginActivity_GeneratedInjector
 import com.salespro.app.databinding.FragmentProfileBinding
+import com.salespro.app.util.Resource
 import com.salespro.app.viewmodel.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
+
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     val viewModel by viewModels<ProfileViewModel>()
@@ -34,6 +41,28 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         onLogoutClick()
+
+        binding.tvVersionCode.text = "Version 1.0"
+
+        lifecycleScope.launchWhenStarted {
+           viewModel.user.collectLatest {
+                when(it){
+                     is Resource.Loading -> {
+                          binding.progressbarSettings.visibility = View.VISIBLE
+                     }
+                     is Resource.Success -> {
+                          binding.progressbarSettings.visibility = View.GONE
+                          binding.tvUserName.text = it.data?.firstName
+
+                     }
+                     is Resource.Error -> {
+                          binding.progressbarSettings.visibility = View.GONE
+                          Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                     }
+                    else -> Unit
+                }
+           }
+        }
 
     }
 
