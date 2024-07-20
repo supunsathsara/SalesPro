@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.salespro.app.R
 import com.salespro.app.activities.LoginActivity
@@ -70,6 +71,13 @@ class ProfileFragment : Fragment() {
            }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val bottomNavigation =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigation.visibility = View.VISIBLE
     }
 
     private fun onLogoutClick() {

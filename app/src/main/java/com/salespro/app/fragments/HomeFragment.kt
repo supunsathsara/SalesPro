@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.salespro.app.R
 import com.salespro.app.adapters.ProductsRecyclerAdapter
 import com.salespro.app.databinding.FragmentHomeBinding
@@ -77,6 +78,13 @@ class HomeFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val bottomNavigation =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigation.visibility = View.VISIBLE
     }
 
     private fun setupProductsRv() {

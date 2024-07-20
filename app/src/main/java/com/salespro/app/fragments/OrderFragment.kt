@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.salespro.app.R
 import com.salespro.app.adapters.OrdersAdapter
 import com.salespro.app.databinding.FragmentOrderBinding
@@ -37,6 +38,7 @@ class OrderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOrderBinding.inflate(inflater, container, false)
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.GONE
         return binding.root
     }
 

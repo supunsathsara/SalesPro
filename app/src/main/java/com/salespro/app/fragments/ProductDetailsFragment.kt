@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.salespro.app.R
 import com.salespro.app.databinding.FragmentProductDetailsBinding
 import com.salespro.app.model.CartProduct
@@ -37,6 +38,7 @@ class ProductDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProductDetailsBinding.inflate(layoutInflater, container, false)
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.GONE
         return binding.root
     }
 

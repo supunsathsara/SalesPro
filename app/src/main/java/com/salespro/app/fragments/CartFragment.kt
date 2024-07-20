@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.salespro.app.R
 import com.salespro.app.adapters.CartProductAdapter
@@ -148,6 +149,13 @@ class CartFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val bottomNavigation =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigation.visibility = View.VISIBLE
     }
 
     private fun showOrderConfirmationDialog() {
