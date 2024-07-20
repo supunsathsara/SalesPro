@@ -8,17 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.salespro.app.R
 import com.salespro.app.adapters.CartProductAdapter
 import com.salespro.app.databinding.FragmentCartBinding
 import com.salespro.app.firebaseDatabase.FirebaseCommon
+import com.salespro.app.model.Order
 import com.salespro.app.util.Resource
 import com.salespro.app.util.VerticalItemDecoration
 import com.salespro.app.viewmodel.CartViewModel
+import com.salespro.app.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -27,6 +31,8 @@ class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
     private val cartAdapter by lazy { CartProductAdapter() }
     private val viewModel by activityViewModels<CartViewModel>()
+    private val orderViewModel by viewModels<OrderViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,6 +77,12 @@ class CartFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.btnCheckout.setOnClickListener {
+            showOrderConfirmationDialog()
+        }
+
+
+
         lifecycleScope.launchWhenStarted {
             viewModel.deleteDialog.collectLatest {
                 var alertDialog = AlertDialog.Builder(requireContext()).apply {
@@ -86,6 +98,27 @@ class CartFragment : Fragment() {
                 }
                 alertDialog.create()
                 alertDialog.show()
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            orderViewModel.order.collectLatest {
+                when(it){
+                    is Resource.Loading -> {
+                        binding.btnCheckout.startAnimation()
+                    }
+                    is Resource.Success -> {
+                        binding.btnCheckout.revertAnimation()
+                        findNavController().navigateUp()
+                        Snackbar.make(requireView(),"Order Placed Successfully",Snackbar.LENGTH_SHORT).show()
+
+                    }
+                    is Resource.Error -> {
+                        binding.btnCheckout.revertAnimation()
+                        Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                    }
+                    else -> Unit
+                }
             }
         }
 
@@ -116,6 +149,29 @@ class CartFragment : Fragment() {
 
         }
     }
+
+    private fun showOrderConfirmationDialog() {
+        var alertDialog = AlertDialog.Builder(requireContext()).apply {
+            setTitle("Place Order")
+            setMessage("Are you sure you want to place this order?")
+            setPositiveButton("Yes") { dialog, _ ->
+                var order = Order(
+                    products = cartAdapter.differ.currentList,
+                    totalPrice = viewModel.calculatePrice(cartAdapter.differ.currentList),
+                    orderStatus = "Pending",
+                    orderDate = System.currentTimeMillis().toString()
+                )
+                orderViewModel.placeOrder(order)
+                dialog.dismiss()
+            }
+            setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+        alertDialog.create()
+        alertDialog.show()
+    }
+
 
     private fun hideEmpty() {
         binding.apply {

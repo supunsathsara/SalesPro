@@ -35,7 +35,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    private fun calculatePrice(data: List<CartProduct>?): Float {
+    fun calculatePrice(data: List<CartProduct>?): Float {
         var price = 0.0
         data?.forEach {
             price += it.product.price * it.quantity
