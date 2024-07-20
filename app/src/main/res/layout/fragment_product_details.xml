@@ -163,7 +163,7 @@
             android:visibility="invisible"
             />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_add_to_cart"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
