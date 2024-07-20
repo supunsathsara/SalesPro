@@ -21,7 +21,7 @@ import com.salespro.app.databinding.FragmentOrderDetailsBinding
 class OrderDetailsFragment : Fragment() {
     private lateinit var binding: FragmentOrderDetailsBinding
     private val orderAdapter by lazy { OrdersAdapter() }
-    private val cartAdapter by lazy { CartProductAdapter() }
+    private val cartAdapter by lazy { CartProductAdapter(showPlusMinus = false) }
 
     private val args by navArgs<OrderDetailsFragmentArgs>()
 
@@ -43,6 +43,7 @@ class OrderDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupOrderDetailsRv()
+
 
         cartAdapter.differ.submitList(args.order.products)
 

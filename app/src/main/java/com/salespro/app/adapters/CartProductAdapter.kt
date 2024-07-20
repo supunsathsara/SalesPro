@@ -1,6 +1,7 @@
 package com.salespro.app.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +12,7 @@ import com.salespro.app.databinding.ProductItemBinding
 import com.salespro.app.model.CartProduct
 
 
-class CartProductAdapter ():
+class CartProductAdapter (private val showPlusMinus: Boolean = true):
     RecyclerView.Adapter<CartProductAdapter.CartProductsViewHolder>() {
     var onItemClick: ((CartProduct) -> Unit)? = null
 
@@ -23,6 +24,14 @@ class CartProductAdapter ():
                     tvCartProductName.text = cartProduct.product.name
                     tvQuantity.text = cartProduct.quantity.toString()
                     tvProductCartPrice.text = "LKR ${cartProduct.product.price}"
+
+                    if (showPlusMinus) {
+                        imgPlus.visibility = View.VISIBLE
+                        imgMinus.visibility = View.VISIBLE
+                    } else {
+                        imgPlus.visibility = View.INVISIBLE
+                        imgMinus.visibility = View.INVISIBLE
+                    }
                 }
             }
         }
@@ -81,7 +90,16 @@ class CartProductAdapter ():
 
         }
 
+        //function to hide the plus and minus buttons from outside
+        fun hidePlusMinus(){
+            holder.binding.imgPlus.visibility = View.GONE
+            holder.binding.imgMinus.visibility = View.GONE
+        }
+
+
     }
+
+    var hidePlusMinus: (() -> Unit)? = null
 
 
 }
