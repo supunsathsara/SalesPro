@@ -63,6 +63,12 @@ class OrdersAdapter() :
     override fun onBindViewHolder(holder: OrderAdapterViewHolder, position: Int) {
         val order = differ.currentList[position]
         holder.bind(order)
+
+        holder.itemView.setOnClickListener {
+            // onItemClick?.invoke(differ.currentList[position])
+            onClick?.invoke(order)
+        }
+
         }
 
 

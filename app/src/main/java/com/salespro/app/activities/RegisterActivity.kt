@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.salespro.app.R
 import com.salespro.app.databinding.ActivityRegisterBinding
 import com.salespro.app.model.User
@@ -98,7 +99,10 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     is Resource.Success -> {
                         Log.d(TAG, it.data.toString())
+                        Snackbar.make(binding.root, "Account created successfully", Snackbar.LENGTH_SHORT).show()
                         binding.btnRegister.revertAnimation()
+                        intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intent)
                     }
                     is Resource.Error -> {
                         Log.e(TAG, it.message.toString())

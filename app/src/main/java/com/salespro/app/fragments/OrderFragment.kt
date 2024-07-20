@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salespro.app.R
@@ -64,6 +65,15 @@ class OrderFragment : Fragment() {
                     else -> Unit
                 }
             }
+        }
+
+        ordersAdapter.onClick ={
+            val action = OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment(it)
+            findNavController().navigate(action)
+        }
+
+        binding.imageCloseOrders.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
